@@ -55,6 +55,13 @@ def linear_least_squares(model_matrix: np.ndarray, y: np.ndarray, ysigma: np.nda
     matrix_b = cova_par @ model_matrix.T @ inv(cova_y)
     theta_est = matrix_b @ y
 
+    # Future implementation with Einstein summation (to be used for large datasets)
+    # inv_var_y = ysigma**(-2)
+    # inv_cova_par2 = np.einsum('ji,j,jl', model_matrix, inv_var_y, model_matrix)
+    # cova_par2 = inv(inv_cova_par2)
+    # matrix_b2 = np.einsum('ij,kj,k -> ik', cova_par2, model_matrix, inv_var_y)
+    # theta_est2 = np.einsum('ij,j', matrix_b2, y)
+
     # Parameter errors
     errors = np.sqrt(np.diagonal(cova_par))
     corr = cova_par / np.tensordot(errors, errors, axes=0)
