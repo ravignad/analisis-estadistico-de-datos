@@ -13,6 +13,7 @@ import numpy as np
 from numpy.linalg import inv
 from scipy.stats import chi2
 from scipy.stats import binned_statistic
+from scipy.optimize import minimize
 
 
 def get_ellipse(center: np.ndarray, cova: np.ndarray, nsigma: int = 1, npoints: int = 1000) -> np.ndarray:
@@ -223,3 +224,59 @@ def array_rms(array):
          square root of the mean of the array elements
     """
     return math.sqrt(np.mean(array ** 2))
+    
+
+
+
+class Least_squares_cost(object):  
+
+    def __init__(self, fit_model, y, ysigma):  
+            self.fit_model = fit_model
+            self.y = y
+            self.ysigma = ysigma
+              
+
+    def __call__(self, theta) :  
+        mu = self.fit_model(theta)        
+        residuals = (self.y - mu) / self.ysigma
+        cost = np.sum(residuals**2)
+        return cost
+
+
+class Poisson_cost(object):  
+
+    def __init__(self, fit_model, k):  
+            self.fit_model = fit_model
+            self.k = k
+              
+
+    def __call__(self, theta) :  
+        mu = self.fit_model(theta)
+        cost_array = 2 * (mu - self.k) - 2 * self.k * np.log(mu / self.k)
+        return cost_array.sum()
+
+
+
+def least_squares(fit_model, y, ysigma, seed) -> dict:
+    """
+    Fit a model to the data with the least squares method
+    
+    Args:
+        fit_model (function pointer?): model to be fitted
+        y  (np.array): dependent variable
+        ysigma  (np.array): errors of y
+        seed  (np.array): initial value of the parameters
+    """
+    
+#    def cost_function(theta):
+#        mu = fit_model(theta)
+#        residuals = (y - mu) / ysigma
+#        cost = np.sum(residuals**2)
+#        return cost
+    
+    cost_function = Least_squares_cost(fit_model, y, ysigma)
+    
+    fit_result = minimize(cost_function, x0=seed)
+    
+    return fit_result
+        
