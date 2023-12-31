@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.optimize import minimize
+from scipy.stats import chi2
 
 
 class LeastSquares:  
@@ -20,11 +21,86 @@ class LeastSquares:
 
 
     def fit(self, seed):
-        fit_result = minimize(self.cost_function, x0=seed)
-        return fit_result
+        self.fit_result = minimize(self.cost_function, x0=seed)
+
+        if !self.fit_result.success:
+            print(self.fit_result)
+            raise FloatingPointError("ERROR: scipy.optimize.minimize did not converge")
+
+        return self.fit_result.status
         
 
-
+    # Fit results getters
+    
+    def get_mle(self):
+        return self.fit_result.x
+        
+        
+    def get_errors(self):
+        covariance = self.get_covariance_matrix()
+        errors = np.sqrt( np.diagonal(covariance) )
+        return errors
+        
+        
+    def get_covariance_matrix(self):
+        covariance = 2 * self.fit_result.hess_inv
+        return covariance
+        
+    
+    def get_correlation_matrix(self):
+        covariance = self.get_covariance_matrix()
+        errors = self.get_errors()
+        correlation = covariance / np.tensordot(errors, errors, axes=0)
+        return correlation
+    
+    
+    def get_deviance(self):
+        return self.fit_result.fun
+        
+        
+    def get_ndof(self):
+        mle = self.get_mle()
+        ndof = len(self.x) - len(mle)
+        return ndof
+        
+        
+    def get_pvalue(self):
+        deviance = self.get_deviance()
+        ndof = self.get_ndof()
+        pvalue = chi2.sf(deviance, ndof)
+        
+        
+    def get_minimize_result(self):
+        return self.fit_result
+        
+        
+    def get_fit_y(self, x):
+        mle = self.get_mle()
+        return self.model(x, mle) 
+        
+        
+    def get_fit_error(self, x):
+        
+        # Numerical derivative of the model wrt the parameters evaluated at the mle
+        mle = self.get_mle()
+        errors = self.get_errors()
+        step = mle * 0.01
+        theta_up = mle + step
+        theta_down = mle - step
+        model_up = self.model(x, theta_up)
+        model_down = self.model(x, theta_down)
+        gradient = (model_up - model_down) / (2*step)
+        
+        # Propagate parameter errors
+        covariance = self.get_covariance()
+        var_fit = np.einsum("ki,ij,kj->k", gradient, covariance, gradient)
+        sigma_fit = np.sqrt(var_fit)
+        
+        return sigma_fit
+    
+    
+        
+    
 # class Poisson(object):  
 
 #    def __call__(self, theta) :  
