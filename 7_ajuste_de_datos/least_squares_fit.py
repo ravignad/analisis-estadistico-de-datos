@@ -1,26 +1,24 @@
-# Pruebo cuadrados mínimos no-lineal de la librería sda
+# Pruebo cuadrados mínimos no-lineal de la librería likefit
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from scipy.optimize import minimize
 import sda
+from likefit import LeastSquares
 
 
 input_file = 'beta.dat'
 data = pd.read_csv(input_file)
+ 
+# fit_model vectorized in x 
+def fit_model(x, theta):
+     return theta[0] + theta[1] * x + theta[2] * x**2 
 
-xdata = data["x"]
-def fit_model(theta):
-     return theta[0] + theta[1] * xdata + theta[2] * xdata**2 
-
-cost_function = sda.Least_squares_cost(fit_model, data["beta"], data["dbeta"])
+fit_model = LeastSquares(data["x"], data["beta"], data["dbeta"], fit_model)
 
 seed = np.array([1, 1, 1])
 
-fit_result = minimize(cost_function, x0=seed) 
-
-# fit_result = sda.least_squares(fit_model, data["beta"], data["dbeta"], seed)
+fit_result = fit_model.fit(seed)
 
 print("Fit result")
 print(fit_result)
