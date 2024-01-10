@@ -76,19 +76,9 @@ def main():
     plot_S0_errors(S0_error)
     plot_beta_errors(beta_error)
 
-    # Goodness of fit
-    cost_min_obs = 0.32967858568717334
-
-    # Analytic pvalue
+    # Plot deviance and pvalue distributions
     ndof = len(distance) - len(theta_true)
-    pvalue_ana = chi2.sf(cost_min_obs, ndof)
-    print(f'Analytic pvalue: {pvalue_ana*100:.1f}%')
-
-    # Numeric pvalue
-    pvalue_num, pvalue_error = danatools.get_pvalue(cost_min, cost_min_obs)
-    print(f'Numeric pvalue: ({pvalue_num*100:.1f} ± {pvalue_error*100:.1f})%')
-
-    plot_chi2(cost_min, ndof)
+    plot_deviance(cost_min, ndof)
 
     pvalues = chi2.sf(cost_min, df=ndof)
     plot_pvalue(pvalues)
@@ -161,20 +151,20 @@ def plot_beta_errors(beta_errors):
     danatools.savefigs("fit_perf_dbeta")
 
 
-def plot_chi2(chi2s, ndof):
+def plot_deviance(deviances, ndof):
     fig, ax = plt.subplots(tight_layout=True)
     ax.set_xlabel('$J_{\min}$')
     ax.set_ylabel('Events')
-    histo, bin_edges = np.histogram(chi2s, bins=50, range=[0, 0.5])
+    histo, bin_edges = np.histogram(deviances, bins=50, range=[0, 0.5])
     bin_centers = (bin_edges[0:-1] + bin_edges[1:]) / 2
-    ax.plot(bin_centers, histo, drawstyle='steps-mid', color='tab:blue', label='Data')
+    ax.plot(bin_centers, histo, drawstyle='steps-mid', color='tab:blue', label="Data")
     x = np.linspace(0, 0.5, 256)
     bin_width = bin_edges[1] - bin_edges[0]
     y = chi2.pdf(x, ndof) * SIMULATIONS * bin_width
-    ax.plot(x, y, ls='--', color='tab:orange', label='$\chi^2_1$')
+    ax.plot(x, y, ls='--', color='tab:orange', label="PDF")
     ax.legend()
 
-    danatools.savefigs("fit_perf_chi2")
+    danatools.savefigs("fit_perf_deviance")
 
 
 def plot_pvalue(pvalues):
