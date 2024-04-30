@@ -1,35 +1,33 @@
 ## Instalar las demos
 
-Abrir el repository https://github.com/ravignad/analisis-estadistico-de-datos en un navegador
+1. Abrir el repository https://github.com/ravignad/analisis-estadistico-de-datos en un navegador y bajar el archivo analisis-estadistico-de-datos-main.zip
 
-Bajar el archivo zip  analisis-estadistico-de-datos-main.zip
+![analisis-estadistico-de-datos-main.zip](bajar_repo.png)
 
-Mover analisis-estadistico-de-datos-main.zip a una carpeta
+2. Mover analisis-estadistico-de-datos-main.zip a una carpeta y descomprimir
+   
+ `cd ~`
+ 
+`unzip analisis-estadistico-de-datos-main`
 
-Descomprimir analisis-estadistico-de-datos-main.zip. 
+3. Crear un entorno virtual Python dentro del directorio analisis-estadistico-de-datos-main
 
-'unzip analisis-estadistico-de-datos-main'
+`cd analisis-estadistico-de-datos-main`
 
-Se genera el directorio analisis-estadistico-de-datos-main con que contiene todas las demos
+`python3 -m venv venv`
 
-cd analisis-estadistico-de-datos-main
+4. Activar el entorno virtual
 
-Crear un entorno virtual Python
+`source venv/activate/bin`
 
-'python3 -m venv venv'
+5. Instalar las dependencias dentro del entorno virtual:
 
-Activar el entorno virtual
+`(venv) python3 -m pip install -r requirements.txt`
 
-'source venv/activate/bin'
+6. Crear el kernel Jupyter analisis-datos
 
-Instalar las dependencias:
+`(venv) python3 -m ipykernel install --user --name=analisis-datos`
 
-'python3 -m pip install -r requirements.txt'
+7. Correr Jupyter
 
-Crear kernel Jupyter 
-
-python3 -m ipykernel install --user --name=analisis-datos
-
-Correr Jupyter
-
-'jupyter notebook'
+`(venv) jupyter notebook`
