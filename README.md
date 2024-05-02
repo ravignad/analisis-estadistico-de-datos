@@ -1,4 +1,4 @@
-## Instalar las demos
+## Instalación de las demos
 
 1. Abrir el repository https://github.com/ravignad/analisis-estadistico-de-datos en un navegador y bajar el archivo analisis-estadistico-de-datos-main.zip
 
@@ -26,8 +26,20 @@
 
 6. Crear el kernel Jupyter analisis-datos
 
-`(venv) python3 -m ipykernel install --user --name=analisis-datos`
+`(venv) python3 -m ipykernel install --prefix=./venv --name=aed_demos --display_name "Demos Análisis Datos"`
 
-7. Correr Jupyter
+## Ejecución de las demos
 
-`(venv) jupyter notebook`
+1. Ir al directorio de las demos
+
+`cd analisis-estadistico-de-datos-main`
+
+2. Activar el entorno virtual
+
+`source venv/activate/bin`
+
+3. Correr una demo
+ 
+`jupyter notebook 1_probabilidad_discreta/cumpleanos.ipynb`
+
+
