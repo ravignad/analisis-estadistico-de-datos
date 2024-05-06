@@ -1,6 +1,6 @@
 # Demos Análisis de Datos
 
-Este repositorio contiene las demos en Python usadas en el curso **Análisis Estadístico de Datos** del [Instituto Sabato](www.isabato.edu.ar). 
+Este repositorio contiene las demos Python usadas en el curso **Análisis Estadístico de Datos** del [Instituto Sabato](www.isabato.edu.ar). 
 
 ## Ejecutar las demos
 
