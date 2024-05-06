@@ -11,7 +11,7 @@ Abrir el enlace https://mybinder.org/v2/gh/ravignad/analisis-estadistico-de-dato
 
 - Repositorio: https://github.com/ravignad/analisis-estadistico-de-datos
 - Programa de la materia: https://bit.ly/42vsNBt
-- Cursantes: https://bit.ly/42u4G6e
+- Informe de cursantes: https://bit.ly/42u4G6e
 
 
 ## Autores 
