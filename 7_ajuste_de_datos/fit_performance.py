@@ -56,8 +56,16 @@ def main():
         S0_error.append(errors[0])
         beta_error.append(errors[1])
 
-        cost_min.append(fitter.get_deviance())
+        cost_min.append(fitter.get_chi_square())
 
+
+    # Transform lists to numpy arrays
+    S0_est = np.asarray(S0_est)
+    beta_est = np.asarray(beta_est)
+    S0_error = np.asarray(S0_error)
+    beta_error = np.asarray(beta_error)
+    cost_min = np.asarray(cost_min)
+    
     # Performance of the parameter estimators
     bias_S0, bias_S0_error = danatools.get_bias(S0_est, S0_true)
     print(f'Bias S₀ estimator: {bias_S0:.3f} ± {bias_S0_error:.3f}')
@@ -68,7 +76,7 @@ def main():
     plot_histo_beta(beta_est, beta_true)
 
     # Coverage of the confidence intervals
-    coverage_S0, coverage_S0_error = danatools.get_coverage(S0_est, S0_error, S0_true)
+    coverage_S0, coverage_S0_error = danatools.get_coverage(S0_est-S0_error, S0_est+S0_error, S0_true)
     print(f'Coverage S0 interval: ({coverage_S0 * 100:.1f} ± {coverage_S0_error * 100:.1f})%')
     coverage_beta, coverage_beta_error = danatools.get_coverage(beta_est, beta_error, beta_true)
     print(f'Coverage β interval: ({coverage_beta * 100:.1f} ± {coverage_beta_error * 100:.1f})%')
