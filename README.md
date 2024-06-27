@@ -1,11 +1,10 @@
 # Demos Análisis de Datos
 
-Este repositorio contiene las demos Python usadas en el curso **Análisis Estadístico de Datos** del [Instituto Sabato](www.isabato.edu.ar). 
+Este repositorio contiene las demos y los trabajos prácticos del curso **Análisis Estadístico de Datos** del [Instituto Sabato](www.isabato.edu.ar). 
 
-## Ejecutar las demos
+## Bajar las demos
 
-Abrir el enlace https://mybinder.org/v2/gh/ravignad/analisis-estadistico-de-datos/latest para lanzar **binder**, un entorno interactivo para ejecutar cuadernos Jupyter.
-
+La última versión estable de este repositorio está disponible en https://github.com/ravignad/analisis-estadistico-de-datos/archive/refs/tags/stable.zip.
 
 ## Enlaces
 
@@ -15,7 +14,7 @@ Abrir el enlace https://mybinder.org/v2/gh/ravignad/analisis-estadistico-de-dato
 
 
 ## Autores 
-Diego Ravignani y Carmina Perez Bertolli [ITeDA](www.iteda.cnea.gov.ar).
+Diego Ravignani y Carmina Perez Bertolli ([ITeDA](www.iteda.cnea.gov.ar)).
 
 ## Licencia
 Las demos son distribuidas bajo licencia MIT.
