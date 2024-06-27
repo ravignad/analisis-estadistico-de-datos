@@ -78,7 +78,7 @@ def main():
     # Coverage of the confidence intervals
     coverage_S0, coverage_S0_error = danatools.get_coverage(S0_est-S0_error, S0_est+S0_error, S0_true)
     print(f'Coverage S0 interval: ({coverage_S0 * 100:.1f} ± {coverage_S0_error * 100:.1f})%')
-    coverage_beta, coverage_beta_error = danatools.get_coverage(beta_est, beta_error, beta_true)
+    coverage_beta, coverage_beta_error = danatools.get_coverage(beta_est-beta_error, beta_est+beta_error, beta_true)
     print(f'Coverage β interval: ({coverage_beta * 100:.1f} ± {coverage_beta_error * 100:.1f})%')
 
     plot_S0_errors(S0_error)
