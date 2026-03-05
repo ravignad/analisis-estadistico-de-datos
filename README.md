@@ -6,6 +6,23 @@ Este repositorio contiene las demos y los trabajos prácticos del curso **Análi
 
 La última versión estable de este repositorio está disponible en https://github.com/ravignad/analisis-estadistico-de-datos/archive/refs/tags/stable.zip.
 
+## Configurar el entorno
+
+```bash
+cd /path/to/project
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python -m ipykernel install --user --name project-venv --display-name "Python (project-venv)"
+
+
+## Ejecutar Jupyter
+```bash
+cd /path/to/project
+source venv/bin/activate
+jupyter notebook
+
+
 ## Enlaces
 
 - Repositorio: https://github.com/ravignad/analisis-estadistico-de-datos
